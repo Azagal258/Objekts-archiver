@@ -3,6 +3,7 @@
 import json
 import requests
 import os
+import sys
 from datetime import datetime
 import dotenv
 
@@ -206,7 +207,7 @@ def download_file(url: str, path: str, slug: str, timestamp:tuple[float, float]|
         response = requests.get(url, timeout=10)
         response.raise_for_status()
     except requests.RequestException as e:
-        print(f"[ERROR] Failed to fetch {slug} at {url} : Code {response.status_code}")
+        print(f"[ERROR] Failed to fetch {slug} at {url} : {e}")
         return False
     
     with open(path, "wb") as f:
@@ -333,5 +334,5 @@ def main() -> None:
 
 ### Process ###
 
-if __name__ == '__main__':
+if __name__ == '__main__': # pragma: no cover
     main()
